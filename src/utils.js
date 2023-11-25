@@ -1,14 +1,20 @@
 const Utils = {
-    checkBookProperty(book) {
+    checkBookProperty(book, isUpdate) {
         if (!book?.name?.trim()) {
-            throw new Error('Failed to save book. Please fill the books name');
+            throw new Error(
+                isUpdate
+                    ? 'Gagal memperbarui buku. Mohon isi nama buku'
+                    : 'Gagal menambahkan buku. Mohon isi nama buku'
+            );
         }
-        if (!book?.pageCount || !book?.readPage) {
+        if (book?.pageCount === undefined || book?.readPage === undefined) {
             throw new Error('page count and read page is required');
         }
         if (Number(book?.readPage) > Number(book?.pageCount)) {
             throw new Error(
-                'Failed to save book. read page is not allowed to bigger than page count'
+                isUpdate
+                    ? 'Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount'
+                    : 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount'
             );
         }
     },

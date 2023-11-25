@@ -5,7 +5,7 @@ const updateHandler = (request, h) => {
     try {
         const body = request.payload;
         const id = request.params.bookId;
-        Utils.checkBookProperty(body);
+        Utils.checkBookProperty(body, true);
         const existingBook = db.getBook(id);
         if (!existingBook) {
             return h
